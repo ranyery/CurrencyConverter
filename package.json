@@ -7,7 +7,7 @@
     "build": "ng build",
     "postbuild": "npm run purge-css",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "npm run lint:styles && ng lint --fix",
     "lint:styles": "npx stylelint src/**/*.scss --fix",
     "format": "npx prettier --loglevel warn src/**/*.{html,css,scss,json,js,ts} --write",
