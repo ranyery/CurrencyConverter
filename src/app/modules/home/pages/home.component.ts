@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
       next: (response) => {
         const { bid } = response;
         this._valorUSD = Number(bid);
+        this.form.controls['amount'].setValue(1, { emitEvent: false });
+        this.form.controls['converted'].setValue(this._valorUSD, { emitEvent: false });
       },
       error: () => {
         // Handle

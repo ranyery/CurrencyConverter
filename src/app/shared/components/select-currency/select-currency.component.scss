@@ -1,0 +1,64 @@
+.select-currency {
+  display: flex;
+  padding: 8px 16px;
+  border: 1px solid #c6c6c6;
+  border-radius: 4px;
+
+  &__value {
+    flex: 1;
+  }
+
+  &__label {
+    color: #1a1a1a;
+  }
+
+  &__input {
+    p-inputnumber::ng-deep {
+      display: block;
+      width: 100%;
+
+      .p-inputnumber {
+        display: block;
+        width: 100%;
+      }
+
+      .p-inputtext {
+        display: block;
+        width: 100%;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: #1a1a1a;
+        font-family: Roboto;
+        font-size: 24px;
+        font-weight: 700;
+
+        &:enabled {
+          &:focus,
+          &:hover {
+            border: 0;
+            box-shadow: none;
+          }
+        }
+      }
+    }
+  }
+
+  &__options {
+    p-dropdown::ng-deep {
+      .selectedItem__info {
+        display: flex;
+        gap: 4px;
+      }
+
+      .p-dropdown {
+        border: 1px solid #c6c6c6;
+
+        &:hover {
+          border-color: #c6c6c6;
+        }
+      }
+    }
+  }
+}

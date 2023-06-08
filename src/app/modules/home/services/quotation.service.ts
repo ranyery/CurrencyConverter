@@ -8,7 +8,8 @@ import { CurrencyQuote, CurrencyQuotes } from '../interfaces/currency-quote';
   providedIn: 'root',
 })
 export class QuotationService {
-  private _baseUrl = 'https://economia.awesomeapi.com.br/last/USD-BRL';
+  // private _baseUrl = 'https://economia.awesomeapi.com.br/last/USD-BRL';
+  private _baseUrl = 'https://currency-conversion-api.vercel.app/api/convert?from=brl&to=brl';
 
   constructor(private _httpClient: HttpClient) {}
 
