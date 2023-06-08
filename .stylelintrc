@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-prettier-scss",
+    "stylelint-config-sass-guidelines",
+    "stylelint-config-idiomatic-order"
+  ],
+  "rules": {
+    "max-line-length": 100,
+    "string-quotes": "double",
+    "no-empty-source": null,
+    "max-nesting-depth": null,
+    "selector-class-pattern": null,
+    "property-no-vendor-prefix": null,
+    "declaration-empty-line-before": null,
+    "selector-pseudo-element-no-unknown": null,
+    "order/properties-alphabetical-order": null,
+    "scss/dollar-variable-empty-line-before": null,
+    "selector-max-compound-selectors": null,
+    "no-descending-specificity": null,
+    "font-family-no-missing-generic-family-keyword": null
+  }
+}

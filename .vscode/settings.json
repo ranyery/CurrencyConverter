@@ -1,0 +1,30 @@
+{
+  "editor.rulers": [80, 120],
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.formatOnSave": true,
+  "explorer.compactFolders": false,
+  "extensions.ignoreRecommendations": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "typescript.suggest.paths": false,
+  "javascript.suggest.paths": false,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "files.exclude": {
+    ".angular": true,
+    ".husky": true,
+    "node_modules": true,
+    "package-lock.json": true
+  }
+}
