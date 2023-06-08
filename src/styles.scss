@@ -1,1 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/roboto/regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 700;
+  src: url("./assets/fonts/roboto/bold.ttf") format("truetype");
+}
+
+body {
+  width: 100%;
+  min-width: 280px;
+  max-width: 1440px;
+  height: 100vh;
+  margin: 0 auto;
+
+  color: #000;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}

@@ -6,8 +6,6 @@
     "stylelint-config-idiomatic-order"
   ],
   "rules": {
-    "max-line-length": 100,
-    "string-quotes": "double",
     "no-empty-source": null,
     "max-nesting-depth": null,
     "selector-class-pattern": null,
