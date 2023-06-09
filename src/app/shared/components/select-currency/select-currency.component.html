@@ -1,37 +1,43 @@
 <div class="select-currency">
   <div class="select-currency__value">
-    <div class="select-currency__label">Amount</div>
+    <div class="select-currency__label">{{ label }}</div>
     <div class="select-currency__input">
-      <p-inputNumber mode="decimal" locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
+      <p-inputNumber
+        [min]="0"
+        [formControl]="control"
+        (onInput)="onInput($event)"
+        mode="decimal"
+        locale="pt-BR"
+        [minFractionDigits]="2"
+        [maxFractionDigits]="2"
+        [placeholder]="placeholder">
       </p-inputNumber>
     </div>
   </div>
   <div class="select-currency__options">
     <p-dropdown
-      [options]="countries"
-      [(ngModel)]="selectedCountry"
-      optionLabel="name"
+      [options]="currencies"
+      [(ngModel)]="selectedCurrency"
+      (onChange)="onChangeCurrency($event)"
       [filter]="true"
       filterBy="name"
-      placeholder="Select a Country">
+      placeholder="Select a Currency">
       <ng-template pTemplate="selectedItem">
-        <div class="selectedItem__info" *ngIf="selectedCountry">
+        <div class="selectedItem__info" *ngIf="selectedCurrency">
           <img
-            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-            [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
+            src="https://placehold.co/44x30?text={{ selectedCurrency.code }}&font=roboto"
             style="width: 18px"
-            alt="" />
-          <div>{{ selectedCountry.name }}</div>
+            [alt]="selectedCurrency.name" />
+          <span>{{ selectedCurrency.code }}</span>
         </div>
       </ng-template>
       <ng-template let-country pTemplate="item">
         <div class="selectedItem__info">
           <img
-            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-            [class]="'flag flag-' + country.code.toLowerCase()"
+            src="https://placehold.co/44x30?text={{ country.code }}&font=roboto"
             style="width: 18px"
-            alt="" />
-          <div>{{ country.name }}</div>
+            [alt]="country.name" />
+          <span>{{ country.code }} - {{ country.name }}</span>
         </div>
       </ng-template>
     </p-dropdown>

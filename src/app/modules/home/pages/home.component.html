@@ -1,27 +1,11 @@
-<form [formGroup]="form">
-  <div class="wrapper">
-    <div class="input-value">
-      <input formControlName="amount" type="number" />
-      <span
-        *ngIf="
-          (form.controls['amount'].touched || form.controls['amount'].dirty) &&
-          form.controls['amount'].invalid
-        ">
-        O campo é obrigatório!
-      </span>
-    </div>
-    <div>|</div>
-    <div class="input-value">
-      <input formControlName="converted" type="number" />
-      <span
-        *ngIf="
-          (form.controls['converted'].touched || form.controls['converted'].dirty) &&
-          form.controls['converted'].invalid
-        ">
-        O campo é obrigatório!
-      </span>
-    </div>
-  </div>
-</form>
+<app-select-currency
+  label="Amount"
+  [control]="form.controls['amount']"
+  (currencyChange)="amountCurrencyChange($event)">
+</app-select-currency>
 
-<app-select-currency></app-select-currency>
+<app-select-currency
+  label="Converted to"
+  [control]="form.controls['converted']"
+  (currencyChange)="convertedCurrencyChange($event)">
+</app-select-currency>

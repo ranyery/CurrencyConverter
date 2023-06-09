@@ -24,7 +24,7 @@
 
       .p-inputtext {
         display: block;
-        width: 100%;
+        width: calc(100% - 16px);
         padding: 0;
         border: 0;
         border-radius: 0;
@@ -50,6 +50,13 @@
       .selectedItem__info {
         display: flex;
         gap: 4px;
+
+        span {
+          color: #1a1a1a;
+          font-family: Roboto;
+          font-size: 20px;
+          font-weight: 700;
+        }
       }
 
       .p-dropdown {

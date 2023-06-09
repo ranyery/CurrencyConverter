@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs';
 
+import { ICurrency } from 'src/app/shared/components/select-currency/interfaces/currency';
 import { QuotationService } from '../services/quotation.service';
 
 @Component({
@@ -10,7 +11,10 @@ import { QuotationService } from '../services/quotation.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  private _valorUSD = 0;
+  private _currentQuotation = 0;
+
+  private _amountCurrency$ = new BehaviorSubject<ICurrency | undefined>(undefined);
+  private _convertedCurrency$ = new BehaviorSubject<ICurrency | undefined>(undefined);
 
   public form = new FormGroup({
     amount: new FormControl<number | undefined | null>(undefined, [Validators.required]),
@@ -20,61 +24,82 @@ export class HomeComponent implements OnInit {
   constructor(private _quotationService: QuotationService) {}
 
   ngOnInit(): void {
-    this._bindControlChanges();
-    this._quotationService.getCurrencyPair().subscribe({
-      next: (response) => {
-        const { bid } = response;
-        this._valorUSD = Number(bid);
-        this.form.controls['amount'].setValue(1, { emitEvent: false });
-        this.form.controls['converted'].setValue(this._valorUSD, { emitEvent: false });
-      },
-      error: () => {
-        // Handle
-      },
-    });
+    this._listenCurrencyChanges();
+    this._bindControlValueChanges();
   }
 
-  private _bindControlChanges(): void {
+  private _bindControlValueChanges(): void {
     const amountControl = this.form.controls['amount'];
     const convertedControl = this.form.controls['converted'];
 
     const [amountControl$, convertedControl$] = [amountControl, convertedControl].map((control) => {
       return control.valueChanges.pipe(
-        filter((value) => typeof value === 'number'),
-        debounceTime(200),
+        filter((value) => !!value && typeof value === 'number'),
+        debounceTime(0),
         distinctUntilChanged()
       );
     });
 
-    amountControl$.subscribe({
-      next: (value) => {
-        if (!value) return;
+    amountControl$.subscribe((value) => {
+      if (!value) return;
 
-        const quotation = value * this._valorUSD;
-        const roundedQuotation = this._roundValue(quotation);
-        convertedControl.setValue(roundedQuotation, { emitEvent: false });
-      },
-      error: () => {
-        // Handle error
-      },
+      const quotation = value * this._currentQuotation;
+      convertedControl.setValue(quotation, { emitEvent: false });
     });
 
-    convertedControl$.subscribe({
-      next: (value) => {
-        if (!value) return;
+    convertedControl$.subscribe((value) => {
+      if (!value) return;
 
-        const quotation = value / this._valorUSD;
-        const roundedQuotation = this._roundValue(quotation);
-        amountControl.setValue(roundedQuotation, { emitEvent: false });
-      },
-      error: () => {
-        // Handle
-      },
+      const quotation = value / this._currentQuotation;
+      amountControl.setValue(quotation, { emitEvent: false });
     });
   }
 
-  private _roundValue(value: number): number {
-    const formattedValue = value.toFixed(2);
-    return Number(formattedValue);
+  private _listenCurrencyChanges(): void {
+    this._amountCurrency$
+      .pipe(
+        filter((value) => value !== undefined),
+        map((currency) => currency!.code),
+        switchMap((amountCurrencyCode) => {
+          const { code } = this._convertedCurrency$.getValue()!;
+          return this._quotationService.getCurrencyPairQuote(amountCurrencyCode!, code);
+        })
+      )
+      .subscribe({
+        next: (currencyQuote) => {
+          // Handle
+          console.log('_amountCurrency$ quote:', currencyQuote);
+        },
+        error: () => {
+          // Handle error
+        },
+      });
+
+    this._convertedCurrency$
+      .pipe(
+        filter((value) => value !== undefined),
+        map((currency) => currency!.code),
+        switchMap((convertedCurrencyCode) => {
+          const { code } = this._amountCurrency$.getValue()!;
+          return this._quotationService.getCurrencyPairQuote(convertedCurrencyCode!, code);
+        })
+      )
+      .subscribe({
+        next: (currencyQuote) => {
+          // Handle
+          console.log('_convertedCurrency$ quote:', currencyQuote);
+        },
+        error: () => {
+          // Handle error
+        },
+      });
+  }
+
+  public amountCurrencyChange(event: ICurrency): void {
+    this._amountCurrency$.next(event);
+  }
+
+  public convertedCurrencyChange(event: ICurrency): void {
+    this._convertedCurrency$.next(event);
   }
 }
