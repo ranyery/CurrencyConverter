@@ -1,11 +1,17 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
 .select-currency {
   display: flex;
-  padding: 8px 16px;
+  padding: 0 16px;
   border: 1px solid #c6c6c6;
   border-radius: 4px;
 
   &__value {
     flex: 1;
+    padding: 16px 0;
   }
 
   &__label {
@@ -46,6 +52,9 @@
   }
 
   &__options {
+    display: flex;
+    align-items: center;
+
     p-dropdown::ng-deep {
       .selectedItem__info {
         display: flex;
@@ -60,11 +69,12 @@
       }
 
       .p-dropdown {
-        border: 1px solid #c6c6c6;
+        border: 0;
+        box-shadow: none;
+      }
 
-        &:hover {
-          border-color: #c6c6c6;
-        }
+      .p-dropdown-trigger-icon {
+        color: #000;
       }
     }
   }

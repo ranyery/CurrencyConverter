@@ -1,11 +1,38 @@
-<app-select-currency
-  label="Amount"
-  [control]="form.controls['amount']"
-  (currencyChange)="amountCurrencyChange($event)">
-</app-select-currency>
+<div class="home">
+  <div class="hero">
+    <div class="hero__title">Currency Converter</div>
+    <div class="hero__description">
+      Need to make an international business payment? Take a look at our live foreign exchange
+      rates.
+    </div>
+  </div>
+  <div class="currency-converter">
+    <div class="currency-converter__title">
+      Make fast and affordable international business payments
+    </div>
+    <div class="currency-converter__description">
+      Send secure international business payments in XX currencies, all at competitive rates with no
+      hidden fees.
+    </div>
+    <div
+      class="currency-converter__main"
+      [ngClass]="{ 'currency-converter__main--reverse': changeSide }">
+      <app-select-currency
+        label="Amount"
+        [control]="form.controls['amount']"
+        (currencyChange)="amountCurrencyChange($event)">
+      </app-select-currency>
 
-<app-select-currency
-  label="Converted to"
-  [control]="form.controls['converted']"
-  (currencyChange)="convertedCurrencyChange($event)">
-</app-select-currency>
+      <button class="currency-converter__switch" (click)="switchSide()">
+        <img src="assets/images/svg/switch.svg" alt="Switch icon" />
+      </button>
+
+      <app-select-currency
+        label="Converted to"
+        [control]="form.controls['converted']"
+        (currencyChange)="convertedCurrencyChange($event)">
+      </app-select-currency>
+    </div>
+    <div class="currency-converter__quote-info">1.00 USD = 0.8875 GBP</div>
+  </div>
+</div>

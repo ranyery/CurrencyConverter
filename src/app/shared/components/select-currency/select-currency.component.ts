@@ -56,6 +56,10 @@ export class SelectCurrencyComponent implements OnInit, OnChanges, OnDestroy {
       const disableOrEnable = this.disabled ? 'disable' : 'enable';
       this.control[disableOrEnable]();
     }
+
+    if (changes['control']) {
+      console.error("changes['control']: Atualizar aqui pq vai ter lado");
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

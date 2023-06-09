@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
     converted: new FormControl<number | undefined | null>(undefined, [Validators.required]),
   });
 
+  public changeSide = false;
+
   constructor(private _quotationService: QuotationService) {}
 
   ngOnInit(): void {
@@ -53,6 +55,18 @@ export class HomeComponent implements OnInit {
       const quotation = value / this._currentQuotation;
       amountControl.setValue(quotation, { emitEvent: false });
     });
+  }
+
+  public amountCurrencyChange(event: ICurrency): void {
+    this._amountCurrency$.next(event);
+  }
+
+  public convertedCurrencyChange(event: ICurrency): void {
+    this._convertedCurrency$.next(event);
+  }
+
+  public switchSide() {
+    this.changeSide = !this.changeSide;
   }
 
   private _listenCurrencyChanges(): void {
@@ -93,13 +107,5 @@ export class HomeComponent implements OnInit {
           // Handle error
         },
       });
-  }
-
-  public amountCurrencyChange(event: ICurrency): void {
-    this._amountCurrency$.next(event);
-  }
-
-  public convertedCurrencyChange(event: ICurrency): void {
-    this._convertedCurrency$.next(event);
   }
 }
